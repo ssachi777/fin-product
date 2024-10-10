@@ -1,3 +1,4 @@
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -31,3 +32,23 @@ def get_accounts_by_product(request, product_id):
     
     # Return the list of accounts as a JSON response
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+# myapp/views.py
+from rest_framework import generics
+from .models import Product
+from .serializers import ProductSerializer
+
+class CreateProductView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def perform_create(self, serializer):
+        # Automatically generate product_id and use None for admin_id
+        product_id = Product.generate_product_id()  # Generate new product_id
+        serializer.save(product_id=product_id, admin_id=None)  # Pass product_id and admin_id
+
+# New view for fetching products
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
