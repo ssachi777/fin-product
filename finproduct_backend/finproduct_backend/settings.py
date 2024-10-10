@@ -87,14 +87,14 @@ WSGI_APPLICATION = 'finproduct_backend.wsgi.application'
 DATABASES = {
 'default': {
 'ENGINE': 'django_cockroachdb',
-'NAME': 'my_database',
-'USER': 's_geetanjali',
-'PASSWORD': '48FlKNiLRvlHi8EK5-3Lhg',
-'HOST': 'ring-emu-14730.5xj.gcp-us-central1.cockroachlabs.cloud',
+'NAME': 'defaultdb',
+'USER': 'rahul',
+'PASSWORD': 'zJL10mRdSqB61z0Tu4vEqA',
+'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',
 'PORT': '26257',
-'OPTIONS': {
-'sslmode': 'verify-full'
-},
+ 'OPTIONS': {
+            'sslmode': 'verify-full',
+        },
 }
 }
 
