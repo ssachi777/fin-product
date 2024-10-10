@@ -1,47 +1,38 @@
 "use client";
 import React, { useState } from 'react';
 
+interface Parameter {
+  name: string;
+  level: string;
+  description: string;
+  displayName: string;
+  updatePermission: string;
+  shape: string;
+}
+
 const CreateProductPage: React.FC = () => {
   const [productName, setProductName] = useState<string>('');
   const [productDescription, setProductDescription] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [createdAt, setCreatedAt] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch('http://localhost:8000/api/products/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          product_name: productName,
-          description: productDescription,
-          // created_at is not included since it is handled by the backend
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create product');
-      }
-
-      // Reset form fields
-      setProductName('');
-      setProductDescription('');
-      setError(''); // Clear any previous errors
-      console.log('Product created successfully!');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
-      console.error('Error creating product:', err);
-    }
+    // Handle form submission logic here
+    console.log({
+      productName,
+      productDescription,
+      createdAt,
+    });
+    // Reset form fields
+    setProductName('');
+    setProductDescription('');
+    setCreatedAt('');
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-green-600">Create Product</h1>
-      {error && <div className="text-red-500 mb-4">{error}</div>}
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md space-y-4 w-1/2">
+      <h1 className="text-2xl font-bold mb-6 text-green">Create Product</h1>
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md space-y-4">
         <div>
           <label className="block mb-1 text-gray-700" htmlFor="productName">Product Name</label>
           <input
@@ -59,13 +50,24 @@ const CreateProductPage: React.FC = () => {
             id="productDescription"
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border border-gray-300 p-2 w-full rounded"
+            required
+          />
+        </div>
+        <div>
+          <label className="block mb-1 text-black" htmlFor="createdAt">Created At</label>
+          <input
+            type="date"
+            id="createdAt"
+            value={createdAt}
+            onChange={(e) => setCreatedAt(e.target.value)}
+            className="border border-gray-300 p-2 w-full rounded"
             required
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition"
+          className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition mt-4"
         >
           Submit
         </button>
