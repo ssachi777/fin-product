@@ -84,18 +84,19 @@ WSGI_APPLICATION = 'finproduct_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-'default': {
-'ENGINE': 'django_cockroachdb',
-'NAME': 'defaultdb',
-'USER': 'rahul',
-'PASSWORD': 'zJL10mRdSqB61z0Tu4vEqA',
-'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',
-'PORT': '26257',
- 'OPTIONS': {
-            'sslmode': 'verify-full',
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # Use the PostgreSQL backend
+        'NAME': 'defaultdb',                        # Database name
+        'USER': 'rahul',                            # Database user
+        'PASSWORD': 'S_Cgr4NSW-cJo8zPGdYkRg',      # User's password
+        'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',  # Database host
+        'PORT': '26257',                            # Database port
+        'OPTIONS': {
+            'sslmode': 'verify-full',               # SSL mode option
         },
+    }
 }
-}
+
 
 
 # Password validation

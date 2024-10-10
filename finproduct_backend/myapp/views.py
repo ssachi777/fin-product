@@ -1,10 +1,10 @@
-
+from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
-from .models import Account
-from .serializers import AccountSerializer
+from .models import Account, Product, Parameter, ProductParameter
+from .serializers import AccountSerializer,ProductSerializer, ParameterSerializer, ProductParameterSerializer
 
 
 @api_view(['POST'])
@@ -33,10 +33,6 @@ def get_accounts_by_product(request, product_id):
     # Return the list of accounts as a JSON response
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# myapp/views.py
-from rest_framework import generics
-from .models import Product
-from .serializers import ProductSerializer
 
 class CreateProductView(generics.CreateAPIView):
     queryset = Product.objects.all()
@@ -52,3 +48,10 @@ class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+class CreateProductParameterView(generics.CreateAPIView):
+    queryset = ProductParameter.objects.all()
+    serializer_class = ProductParameterSerializer
+
+class ParameterListView(generics.ListAPIView):
+    queryset = Parameter.objects.all()
+    serializer_class = ParameterSerializer
