@@ -88,7 +88,7 @@ DATABASES = {
 'ENGINE': 'django_cockroachdb',
 'NAME': 'defaultdb',
 'USER': 'rahul',
-'PASSWORD': 'zJL10mRdSqB61z0Tu4vEqA',
+'PASSWORD': 'S_Cgr4NSW-cJo8zPGdYkRg',
 'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',
 'PORT': '26257',
  'OPTIONS': {

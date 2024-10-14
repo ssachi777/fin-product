@@ -1,11 +1,11 @@
 
 from rest_framework import serializers
-from .models import Account,Product
+from .models import Accounts,Product
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Account
-        fields = ['product_id', 'admin_id', 'account_name', 'status']
+        model = Accounts
+        fields = ['product', 'admin_id', 'account_name', 'status']
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

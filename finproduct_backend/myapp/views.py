@@ -3,8 +3,11 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
-from .models import Account
+from .models import Accounts
 from .serializers import AccountSerializer
+from rest_framework import generics
+from .models import Product
+from .serializers import ProductSerializer
 
 
 @api_view(['POST'])
@@ -22,7 +25,7 @@ def create_account(request):
 @api_view(['GET'])
 def get_accounts_by_product(request, product_id):
     # Fetch accounts associated with the given product_id
-    accounts = Account.objects.filter(product_id=product_id)
+    accounts = Accounts.objects.filter(product_id=product_id)
     
     if not accounts.exists():
         return Response({"error": "No accounts found for this product."}, status=status.HTTP_404_NOT_FOUND)
@@ -34,9 +37,20 @@ def get_accounts_by_product(request, product_id):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 # myapp/views.py
-from rest_framework import generics
-from .models import Product
-from .serializers import ProductSerializer
+@api_view(['GET'])
+def get_product_by_account(request, account_id):
+    """
+    Fetch the product associated with the given account ID.
+    """
+    try:
+        account = Accounts.objects.get(account_id=account_id)
+        product = Product.objects.get(product_id=account.product_id)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Accounts.DoesNotExist:
+        return Response({'detail': 'Account not found.'}, status=status.HTTP_404_NOT_FOUND)
+    except Product.DoesNotExist:
+        return Response({'detail': 'Product not found for this account.'}, status=status.HTTP_404_NOT_FOUND)
 
 class CreateProductView(generics.CreateAPIView):
     queryset = Product.objects.all()
