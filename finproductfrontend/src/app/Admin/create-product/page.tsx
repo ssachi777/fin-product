@@ -31,6 +31,9 @@ const CreateProductPage: React.FC = () => {
       setProductDescription('');
       setError(''); // Clear any previous errors
       console.log('Product created successfully!');
+
+      // Show success alert
+      window.alert('Product created successfully!');
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       console.error('Error creating product:', err);

@@ -9,6 +9,7 @@ const SubProductCreationPage: React.FC = () => {
   const [productName, setProductName] = useState<string>('');
   const [productDescription, setProductDescription] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [successMessage, setSuccessMessage] = useState<string>(''); // State for success message
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,9 +36,14 @@ const SubProductCreationPage: React.FC = () => {
       setProductName('');
       setProductDescription('');
       setError(''); // Clear any previous errors
-      console.log('Sub-product created successfully!');
-      // Optionally navigate back to the product list or show a success message
-      router.push('/admin/view-products'); // Redirect to the product list page after creation
+
+      // Set success message
+      setSuccessMessage('Sub-product created successfully!');
+
+      // Redirect to the same page after a brief delay to show the message
+      setTimeout(() => {
+        router.push(`/admin/create-sub-product?productId=${id}`); // Ensure productId is passed
+      }, 2000); // Adjust delay as needed
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       console.error('Error creating sub-product:', err);
@@ -48,6 +54,7 @@ const SubProductCreationPage: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-3xl font-bold mb-6 text-green-600">Create Sub Product</h1>
       {error && <div className="text-red-500 mb-4">{error}</div>}
+      {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>} {/* Display success message */}
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md space-y-4 w-1/2">
         <div>
           <label className="block mb-1 text-gray-700" htmlFor="productName">Product Name</label>

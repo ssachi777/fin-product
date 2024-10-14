@@ -1,13 +1,16 @@
-
+from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
-from .models import Accounts
+
+
 from .serializers import AccountSerializer
 from rest_framework import generics
 from .models import Product
 from .serializers import ProductSerializer
+from .models import Accounts, Product, Parameter, ProductParameter
+from .serializers import AccountSerializer,ProductSerializer, ParameterSerializer, ProductParameterSerializer
 
 
 @api_view(['POST'])
@@ -35,6 +38,19 @@ def get_accounts_by_product(request, product_id):
     
     # Return the list of accounts as a JSON response
     return Response(serializer.data, status=status.HTTP_200_OK)
+@api_view(['GET'])
+def get_accounts_by_adminid(request, admin_id):
+    # Fetch accounts associated with the given product_id
+    accounts = Accounts.objects.filter(admin_id=admin_id)
+    
+    if not accounts.exists():
+        return Response({"error": "No accounts found for this product."}, status=status.HTTP_404_NOT_FOUND)
+
+    # Serialize the account objects
+    serializer = AccountSerializer(accounts, many=True)
+    
+    # Return the list of accounts as a JSON response
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 # myapp/views.py
 @api_view(['GET'])
@@ -52,6 +68,8 @@ def get_product_by_account(request, account_id):
     except Product.DoesNotExist:
         return Response({'detail': 'Product not found for this account.'}, status=status.HTTP_404_NOT_FOUND)
 
+
+
 class CreateProductView(generics.CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -66,3 +84,10 @@ class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+class CreateProductParameterView(generics.CreateAPIView):
+    queryset = ProductParameter.objects.all()
+    serializer_class = ProductParameterSerializer
+
+class ParameterListView(generics.ListAPIView):
+    queryset = Parameter.objects.all()
+    serializer_class = ParameterSerializer

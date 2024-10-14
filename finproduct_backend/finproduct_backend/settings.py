@@ -92,10 +92,11 @@ DATABASES = {
 'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',
 'PORT': '26257',
  'OPTIONS': {
-            'sslmode': 'verify-full',
-        },
+            'sslmode': 'verify-full',   
 }
+ }
 }
+
 
 
 # Password validation
