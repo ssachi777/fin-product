@@ -43,7 +43,7 @@ const SubProductCreationPage: React.FC = () => {
       // Redirect to the same page after a brief delay to show the message
       setTimeout(() => {
         router.push(`/admin/create-sub-product?productId=${id}`); // Ensure productId is passed
-      }, 2000); // Adjust delay as needed
+      }, 0); // Adjust delay as needed
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       console.error('Error creating sub-product:', err);

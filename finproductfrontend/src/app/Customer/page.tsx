@@ -1,17 +1,16 @@
 "use client"; // Mark this file as a Client Component
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter } from 'next/navigation';
 
 const ViewProductsPage: React.FC = () => {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [products, setProducts] = useState<any[]>([]);
-  const [accountName, setAccountName] = useState<string>(''); // State for the account name input
+  const [accountName, setAccountName] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedProductId, setSelectedProductId] = useState<number | null>(null); // Store selected product ID for creating an account
+  const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
-  // Fetch products when the component mounts
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -31,20 +30,17 @@ const ViewProductsPage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Handle opening the modal when "Create Account" is clicked
   const handleOpenModal = (productId: number) => {
     setSelectedProductId(productId);
     setIsModalOpen(true);
   };
 
-  // Handle closing the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProductId(null);
-    setAccountName(''); // Clear the account name input when closing the modal
+    setAccountName('');
   };
 
-  // Handle saving the new account to the accounts table
   const handleSaveAccount = async () => {
     if (selectedProductId && accountName) {
       try {
@@ -63,7 +59,6 @@ const ViewProductsPage: React.FC = () => {
           throw new Error('Failed to create account');
         }
 
-        // Clear the account name and close modal after saving
         setAccountName('');
         handleCloseModal();
         alert('Account created successfully!');
@@ -106,7 +101,6 @@ const ViewProductsPage: React.FC = () => {
         <p>No products available.</p>
       )}
 
-      {/* Modal for creating an account */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow-lg">
@@ -116,18 +110,18 @@ const ViewProductsPage: React.FC = () => {
               id="account-name"
               type="text"
               value={accountName}
-              onChange={(e) => setAccountName(e.target.value)} // Update account name state
+              onChange={(e) => setAccountName(e.target.value)}
               className="border p-2 mb-4 w-full"
               placeholder="Enter account name"
             />
             <button
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={handleSaveAccount} // Call save function
+              onClick={handleSaveAccount}
             >
               Save Account
             </button>
             <button
-              className="mt-4 bg-red-500 text-white px-4 py-2 rounded ml-2"
+            className="mt-4 bg-red-500 text-white px-4 py-2 rounded ml-2"
               onClick={handleCloseModal}
             >
               Close
