@@ -18,12 +18,11 @@ def create_account(request):
     serializer = AccountSerializer(data=request.data)
     if serializer.is_valid():
         try:
-            serializer.save()  # Save the new account entry
+            serializer.save()  # This will automatically handle the ForeignKey
             return Response({'success': True, 'data': serializer.data}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'success': False, 'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     return Response({'success': False, 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['GET'])
 def get_accounts_by_product(request, product_id):

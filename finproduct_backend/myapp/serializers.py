@@ -5,9 +5,16 @@ from .models import Accounts,Product, Parameter, ProductParameter
 
 
 class AccountSerializer(serializers.ModelSerializer):
+    product_id = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(),
+        source='product'  # Specify that this relates to the 'product' ForeignKey field
+    )
+
     class Meta:
         model = Accounts
         fields = '__all__'
+        read_only_fields = ['account_id', 'created_at', 'status']  # Ensure these fields are read-only
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
