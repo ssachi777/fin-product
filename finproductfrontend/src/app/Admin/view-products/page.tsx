@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'; // Import useRouter
 const ViewProductsPage: React.FC = () => {
   const router = useRouter(); // Initialize the router
   const [products, setProducts] = useState<any[]>([]);
+  const [treeProducts, setTreeProducts] = useState<any[]>([]);
   const [parameters, setParameters] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -22,6 +23,8 @@ const ViewProductsPage: React.FC = () => {
         const data = await response.json();
         console.log('Fetched data:', data);
         setProducts(data);
+        const productTree = buildProductTree(data); // Build the tree structure
+        setTreeProducts(productTree); // Set the tree structure for rendering
       } catch (err) {
         console.error('Error fetching products:', err);
         setError(err.message || 'An error occurred');
@@ -44,6 +47,33 @@ const ViewProductsPage: React.FC = () => {
       console.error('Error fetching parameters:', err);
       setError(err.message || 'An error occurred while fetching parameters');
     }
+  };
+
+  // Recursive function to build a product tree based on parent-child relationships
+  const buildProductTree = (productsList: any[]) => {
+    const productMap: { [key: number]: any } = {}; // Map products by their IDs
+
+    // Initialize the product map
+    productsList.forEach(product => {
+      productMap[product.product_id] = { ...product, subProducts: [] };
+    });
+
+    // Build the tree by assigning each product to its parent's subProducts array
+    const tree: any[] = [];
+    productsList.forEach(product => {
+      if (product.parent_product_id === null) {
+        // If it's a root product, add it to the tree
+        tree.push(productMap[product.product_id]);
+      } else {
+        // Otherwise, find its parent and add it to the parent's subProducts array
+        const parent = productMap[product.parent_product_id];
+        if (parent) {
+          parent.subProducts.push(productMap[product.product_id]);
+        }
+      }
+    });
+
+    return tree; // Return the root-level products (the tree)
   };
 
   const handleOpenModal = (productId: number) => {
@@ -86,13 +116,46 @@ const ViewProductsPage: React.FC = () => {
         setError(err.message || 'An error occurred while saving the parameter');
       }
     }
+  };git
+
+  // Recursive function to render the product tree with parent context
+  const renderProductTree = (productTree: any[], parentName: string | null = null) => {
+    return productTree.map((product) => (
+      <React.Fragment key={product.product_id}>
+        <tr>
+          <td className={`border border-black p-2 ${parentName ? 'pl-8' : 'font-bold'}`}>
+            {product.product_name}
+            {parentName && <span className="text-sm text-gray-600"> (Sub-product of {parentName})</span>}
+          </td>
+          <td className="border border-black p-2">
+            {/* Add Sub Product button for every product */}
+            <div className="space-y-2"> {/* Adds vertical space between buttons */}
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 transition"
+                onClick={() => router.push(`/Admin/create-sub-product?productId=${product.product_id}`)}
+              >
+                Add Sub Product
+              </button>
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+                onClick={() => handleOpenModal(product.product_id)}
+              >
+                Add Parameters
+              </button>
+            </div>
+          </td>
+        </tr>
+        {/* Recursively render sub-products if they exist */}
+        {product.subProducts.length > 0 && renderProductTree(product.subProducts, product.product_name)}
+      </React.Fragment>
+    ));
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
       <h1 className="text-2xl font-bold mb-6">Product List</h1>
       {error && <p className="text-red-500">{error}</p>}
-      {products.length > 0 ? (
+      {treeProducts.length > 0 ? (
         <table className="border border-black w-1/2">
           <thead>
             <tr className="bg-gray-200">
@@ -101,25 +164,7 @@ const ViewProductsPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
-              <tr key={index}>
-                <td className="border border-black p-2">{product.product_name}</td>
-                <td className="border border-black p-2">
-                  <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 transition"
-                    onClick={() => router.push(`/Admin/create-sub-product?productId=${product.product_id}`)}
-                  >
-                    Add Sub Product
-                  </button>
-                  <button 
-                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 transition"
-                    onClick={() => handleOpenModal(product.product_id)}
-                  >
-                    Add Parameters
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {renderProductTree(treeProducts)}
           </tbody>
         </table>
       ) : (
