@@ -7,7 +7,7 @@ from .models import Accounts,Product, Parameter, ProductParameter
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Accounts
-        fields = ['product', 'admin_id', 'account_name', 'status']
+        fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
