@@ -12,7 +12,33 @@ from .serializers import ProductSerializer
 from .models import Accounts, Product, Parameter, ProductParameter
 from .serializers import AccountSerializer,ProductSerializer, ParameterSerializer, ProductParameterSerializer
 
+@api_view(['POST'])
+def create_parameter(request):
+    # Generate a unique parameter_id
+    parameter_id = Parameter.generate_parameter_id()  # Call the static method to get the new ID
+    request.data['parameter_id'] = parameter_id  # Add the parameter_id to the request data
 
+    serializer = ParameterSerializer(data=request.data)
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['PUT'])
+def update_parameter(request, parameter_id):
+    print("Received parameter_id:", parameter_id)  # Log the parameter ID
+    try:
+        parameter = Parameter.objects.get(parameter_id=parameter_id)
+    except Parameter.DoesNotExist:
+        return Response({'error': f'Parameter with ID {parameter_id} not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = ParameterSerializer(parameter, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def create_account(request):
     serializer = AccountSerializer(data=request.data)

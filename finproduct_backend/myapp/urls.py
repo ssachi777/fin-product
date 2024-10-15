@@ -1,9 +1,19 @@
 
 from django.urls import path
-from .views import create_account, get_accounts_by_product,get_product_by_account,get_accounts_by_adminid
-from .views import CreateProductView, ProductListView
-from .views import create_account, get_accounts_by_product
-from .views import CreateProductView, ProductListView, ParameterListView, CreateProductParameterView 
+from .views import (
+    create_account,
+    get_accounts_by_product,
+    get_product_by_account,
+    get_accounts_by_adminid,
+    CreateProductView,
+    ProductListView,
+    ParameterListView,
+    CreateProductParameterView,
+    create_parameter,
+    update_parameter,
+)
+
+from . import views
 
 
 urlpatterns = [
@@ -14,6 +24,8 @@ urlpatterns = [
     path('api/products/', CreateProductView.as_view(), name='create-product'),
     path('api/products/list/', ProductListView.as_view(), name='product-list'),
     path('api/parameters/', ParameterListView.as_view(), name='list-parameters'),
+    path('api/parameters/<int:parameter_id>/', update_parameter, name='update-parameter'),
+    path('api/parameters/create/', create_parameter, name='create-parameter'),
     path('api/productparameters/', CreateProductParameterView.as_view(), name='create-product-parameter'),  # New endpoint
 ]   
 
