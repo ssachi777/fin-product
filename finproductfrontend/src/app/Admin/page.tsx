@@ -19,6 +19,10 @@ const AdminPage = () => {
     // Logic for viewing customers (navigate to the view customers page)
     router.push('/Admin/view-customers');
   };
+  const handleViewParametersClick = () => {
+    // Logic for viewing customers (navigate to the view customers page)
+    router.push('/Admin/view-parameters');
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -41,6 +45,12 @@ const AdminPage = () => {
           className="bg-purple-500 text-white font-semibold py-2 px-4 rounded hover:bg-purple-600 transition"
         >
           View Customers
+        </button>
+        <button
+          onClick={handleViewParametersClick}
+          className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-700 transition"
+        >
+          View Parameters
         </button>
       </div>
     </div>
