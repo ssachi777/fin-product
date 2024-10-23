@@ -48,7 +48,7 @@ class Accounts(models.Model):
 
 
 class Parameter(models.Model):
-    parameter_id = models.CharField(max_length=255, primary_key=True)  # Use CharField for fixed ID
+    parameter_id = models.CharField(primary_key=True)  # Change to BigIntegerField
     parameter_name = models.CharField(max_length=255)
     data_type = models.CharField(max_length=50, null=True)
     default_value = models.CharField(max_length=255, null=True)
@@ -63,7 +63,12 @@ class Parameter(models.Model):
     def __str__(self):
         return self.parameter_name
 
-
+    @staticmethod
+    def generate_parameter_id():
+        last_parameter = Parameter.objects.order_by('parameter_id').last()
+        if last_parameter:
+            return last_parameter.parameter_id + 1  # Incrementing the last parameter ID
+        return 1010793861928484865
 class ProductParameter(models.Model):
     product_id = models.BigIntegerField()  # Foreign key to Product
     parameter_id = models.CharField(max_length=255)  # Foreign key to Parameter as CharField
