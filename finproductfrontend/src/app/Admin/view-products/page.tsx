@@ -116,7 +116,7 @@ const ViewProductsPage: React.FC = () => {
         setError(err.message || 'An error occurred while saving the parameter');
       }
     }
-  };git
+  };
 
   // Recursive function to render the product tree with parent context
   const renderProductTree = (productTree: any[], parentName: string | null = null) => {

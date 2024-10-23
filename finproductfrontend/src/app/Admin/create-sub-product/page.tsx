@@ -39,11 +39,12 @@ const SubProductCreationPage: React.FC = () => {
 
       // Set success message
       setSuccessMessage('Sub-product created successfully!');
-
-      // Redirect to the same page after a brief delay to show the message
+      
+      // Optionally, you could use a timeout here to clear the success message after a few seconds
       setTimeout(() => {
-        router.push(`/admin/create-sub-product?productId=${id}`); // Ensure productId is passed
-      }, 2000); // Adjust delay as needed
+        setSuccessMessage('');
+      }, 3000); // Clear after 3 seconds, adjust as needed
+
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       console.error('Error creating sub-product:', err);

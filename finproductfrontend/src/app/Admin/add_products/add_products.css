@@ -1,0 +1,257 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+.nav {
+    height: 51px;
+    width: 100vw;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+    background: linear-gradient(135deg,#f5a09b,#d97aa8,#a793ff);
+    
+  }
+  .home {
+    width: 70px;   /* Set the width */
+    height: 70px;  /* Set the height to be the same as the width to make it a square */
+    background: linear-gradient(135deg, #E34D67  , #C04B95,#7746F4); /* Choose any color for the circle */
+    border-radius: 50%;  /* This makes the element circular */
+    display: flex;        /* Enable Flexbox */
+    justify-content: center; /* Horizontally center the content (SVG) */
+    align-items: center; 
+
+   
+  }
+  .home svg{
+    height: 40px;
+    width: 40px;
+    color: white;
+    
+  }
+  .icons {
+    width: 40px;   /* Set the width */
+    height: 40px;  /* Set the height to be the same as the width to make it a square */
+    background: linear-gradient(135deg, #E34D67  , #C04B95,#7746F4); /* Choose any color for the circle */
+    border-radius: 50%;  /* This makes the element circular */
+    margin-top: -40px;
+    margin-left: 40px;
+  }
+  .logout-icons {
+    width: 40px;   /* Set the width */
+    height: 40px;  /* Set the height to be the same as the width to make it a square */
+    background: linear-gradient(135deg, #E34D67  , #C04B95,#7746F4); /* Choose any color for the circle */
+    border-radius: 50%;  /* This makes the element circular */
+    margin-top: 50px;
+    margin-left: 1450px;
+    
+    transform: translateY(-95px);
+    /* border: 2px black solid; */
+    display: flex;        /* Enable Flexbox */
+    justify-content: center; /* Horizontally center the content (SVG) */
+    align-items: center; 
+    
+  }
+  .logout-icons svg{
+    height: 25px;
+    transform: rotate(180deg);
+    color: white;
+    
+    
+  }
+  .icons:hover::after {
+    content: "Product managment";  /* Text that appears on hover */
+    position: absolute;
+    top: 16%; /* Vertically center the text */
+    left: 80px; /* Position the text 60px to the right of the icon */
+    transform: translateY(-50%); /* Ensure the text is centered vertically */
+    /* background-color: rgba(0, 0, 0, 0.8);  */
+    color:  rgba(0, 0, 0, 0.8);  /* Text color */
+    padding: 5px 10px;  /* Add some padding */
+    border-radius: 4px; /* Rounded corners for the text box */
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 14px;
+  }
+  .heading{
+    font-size: larger;
+    font-weight: bold;
+    margin-left: 120px;
+    transform: translateY(-60px);
+    font-style: Inter;
+  }
+
+  .addProduct-container{
+    height: 15vh;
+    width: 80vw;
+    background: linear-gradient(135deg,#f5a09b,#d97aa8,#a793ff);
+    margin-left:150px;
+    border-radius: 10px;       /* Rounds the corners of the container */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: -40px;
+  
+  }
+  .form-row {
+    display: flex;
+    justify-content:flex-start;
+    
+  }
+
+  /* Form group styling */
+.form-group {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-right: 100px;
+  
+  
+   /* For three equal-width fields in the first row */
+}
+
+
+.form-row:last-child .form-group {
+   /* For two fields in the second row taking equal space */
+}
+
+/* Label styling */
+.form-group label {
+  margin-right: 25px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-family: Inter,sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Input field styling */
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  height: 40px;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.process-description, .process-action , .process-description,.related-process,.process-history,.process-diagram ,.advance-details{
+  margin-top: 20px;
+  height: 5vh;
+  width: 80vw;
+  background: linear-gradient(135deg,#f5a09b,#d97aa8,#a793ff);
+  margin-left:150px;
+  border-radius: 5px;
+}
+.process-description-values{
+  margin-left: 170px;
+}
+.description-1, .description-2{
+  display: flex;
+  flex-flow: row;
+}
+.description-1 >p {
+  margin-right: 20px;
+}
+.description-2 >p {
+  margin-right: 20px;
+}
+.description{
+  margin-left: 170px;
+}
+.action-option{
+  margin-left: 170px;
+}
+.action-option-1{
+  display: flex;
+  flex-direction: row;
+}
+.action-option-1 p{
+  margin-left: 10px;
+}
+.contract-file{
+  width: 343px;
+  height: 200px;
+  background: linear-gradient(135deg,#f5a09b,#d97aa8,#a793ff);
+  margin-left: 620px;
+  border-radius: 10px;
+}
+
+/* Container for the file upload */
+
+
+/* Label to style the file upload area */
+.upload-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); /* Gradient background */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 550px;
+}
+
+/* Hiding the default file input */
+.upload-box input {
+  display: none;
+}
+
+/* Content inside the upload box */
+.upload-content {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+/* Upload icon styling */
+.upload-icon {
+  font-size: 50px; /* Size of the upload icon */
+  margin-bottom: 10px;
+  opacity: 0.9; /* Slight transparency */
+}
+
+/* Main text inside the upload box */
+.upload-text {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+/* Subtext for showing the file name or instructions */
+.upload-subtext {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* Hover effect to make the upload box interactive */
+.upload-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+

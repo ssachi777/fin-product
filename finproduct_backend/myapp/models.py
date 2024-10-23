@@ -27,7 +27,7 @@ class Product(models.Model):
 class Accounts(models.Model):
     account_id = models.IntegerField(primary_key=True)
     product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)  # Foreign key to Product
-    admin_id = models.BigIntegerField(null=True, blank=True)
+    admin_id = models.BigIntegerField(default=1001)
     account_name = models.CharField(max_length=255)
     status = models.CharField(max_length=50, default='active')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,8 +39,13 @@ class Accounts(models.Model):
         if not self.account_id:  # Only set if account_id is not provided
             max_id = Accounts.objects.aggregate(models.Max('account_id'))['account_id__max']
             self.account_id = (max_id + 1) if max_id is not None else 1
-        super().save(*args, **kwargs)
         
+        if not self.admin_id:  # Only set if admin_id is not provided
+            max_admin_id = Accounts.objects.aggregate(models.Max('admin_id'))['admin_id__max']
+            self.admin_id = (max_admin_id + 1) if max_admin_id is not None else 1001  # Start from 1001
+
+        super().save(*args, **kwargs)
+
 
 class Parameter(models.Model):
     parameter_id = models.CharField(max_length=255, primary_key=True)  # Use CharField for fixed ID
