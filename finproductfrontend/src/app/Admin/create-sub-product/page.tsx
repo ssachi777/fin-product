@@ -1,6 +1,7 @@
 "use client"; // This line is essential to indicate that this component uses hooks
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Header from '../../Header';
 
 const SubProductCreationPage: React.FC = () => {
   const router = useRouter();
@@ -53,6 +54,10 @@ const SubProductCreationPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      {/* Ensure the header is sticky at the top */}
+      <div className="sticky top-0 z-50 w-full bg-white">
+      <Header />
+    </div>
       <h1 className="text-3xl font-bold mb-6 text-green-600">Create Sub Product</h1>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>} {/* Display success message */}

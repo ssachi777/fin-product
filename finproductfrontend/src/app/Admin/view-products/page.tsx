@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter
+import Header from '../../Header';
 
 const ViewProductsPage: React.FC = () => {
   const router = useRouter(); // Initialize the router
@@ -58,6 +59,7 @@ const ViewProductsPage: React.FC = () => {
       productMap[product.product_id] = { ...product, subProducts: [] };
     });
 
+    
     // Build the tree by assigning each product to its parent's subProducts array
     const tree: any[] = [];
     productsList.forEach(product => {
@@ -117,32 +119,47 @@ const ViewProductsPage: React.FC = () => {
       }
     }
   };
+  // Button click handler for "Add Products"
+  const handleAddProductsClick = () => {
+    router.push('/Admin/create-product'); // Redirect to the create product page
+  };
+
+
+  // Handle dropdown selection
+  const handleAction = (productId: number, action: string) => {
+    if (action === 'Add Subproducts') {
+      router.push(`/Admin/create-sub-product?productId=${productId}`);
+    } else if (action === 'Add Parameters') {
+      handleOpenModal(productId);
+    } else if (action === 'Upgrade Products') {
+      // Add logic for upgrading products here
+      alert('Upgrade product feature will be implemented soon.');
+    }
+  };
 
   // Recursive function to render the product tree with parent context
   const renderProductTree = (productTree: any[], parentName: string | null = null) => {
     return productTree.map((product) => (
       <React.Fragment key={product.product_id}>
         <tr>
-          <td className={`border border-black p-2 ${parentName ? 'pl-8' : 'font-bold'}`}>
+          <td className={`border border-white p-2 ${parentName ? 'pl-8' : 'font-bold'}`}>
             {product.product_name}
             {parentName && <span className="text-sm text-gray-600"> (Sub-product of {parentName})</span>}
           </td>
-          <td className="border border-black p-2">
-            {/* Add Sub Product button for every product */}
-            <div className="space-y-2"> {/* Adds vertical space between buttons */}
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600 transition"
-                onClick={() => router.push(`/Admin/create-sub-product?productId=${product.product_id}`)}
-              >
-                Add Sub Product
-              </button>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-                onClick={() => handleOpenModal(product.product_id)}
-              >
-                Add Parameters
-              </button>
-            </div>
+          <td className="border border-white p-2">{product.product_id}</td> {/* Display product_id */}
+          <td className="border border-white p-2"></td> {/* Tags column - empty for now */}
+          <td className="border border-white p-2">1.0.0</td> {/* Default version */}
+          <td className="border border-white p-2">
+            <select
+              className="border p-2"
+              onChange={(e) => handleAction(product.product_id, e.target.value)}
+              defaultValue=""
+            >
+              <option value="" disabled>Select Action</option>
+              <option value="Add Subproducts">Add Subproducts</option>
+              <option value="Add Parameters">Add Parameters</option>
+              <option value="Upgrade Products">Upgrade Products</option>
+            </select>
           </td>
         </tr>
         {/* Recursively render sub-products if they exist */}
@@ -153,14 +170,34 @@ const ViewProductsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
-      <h1 className="text-2xl font-bold mb-6">Product List</h1>
+      {/* Ensure the header is sticky at the top */}
+      <div className="sticky top-0 z-50 w-full bg-white">
+      <Header />
+    </div>
+      
+      {/* Add padding to push content below the header */}
+      <div className=" fixed top-20 right-4 z-50"> {/* Adjust 'pt-16' to match the header height */}
+        <button
+          onClick={handleAddProductsClick}
+          className="bg-gradient-to-r from-[#E34D67] via-[#C04B95] to-[#7746F4] text-white px-4 py-2 rounded hover:opacity-90">
+          Add Products
+        </button>
+      </div>
+  
+      <h1 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#E34D67] via-[#C04B95] to-[#7746F4]">
+        Product List
+      </h1>
+  
       {error && <p className="text-red-500">{error}</p>}
       {treeProducts.length > 0 ? (
-        <table className="border border-black w-1/2">
+        <table className="border border-white w-0.1">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border border-black p-2">Product Name</th>
-              <th className="border border-black p-2">Actions</th>
+              <th className="border border-white p-4">Product Name</th>
+              <th className="border border-white p-4">Product ID</th>
+              <th className="border border-white p-4">Tags</th>
+              <th className="border border-white p-4">Current Version</th>
+              <th className="border border-white p-4">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -170,47 +207,14 @@ const ViewProductsPage: React.FC = () => {
       ) : (
         <p>No products available.</p>
       )}
-
-      {/* Modal for displaying parameters */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Parameters for Product ID: {selectedProductId}</h2>
-            <label className="block mb-2" htmlFor="parameter-select">Select Parameter:</label>
-            <select
-              id="parameter-select"
-              value={selectedParameterId || ''} // Maintain the current selected parameter
-              onChange={(e) => {
-                const paramId = e.target.value; // Get the selected parameter ID
-                setSelectedParameterId(paramId); // Set selected parameter ID
-                console.log('Selected Parameter ID:', paramId); // Log the selected parameter ID
-              }} 
-              className="border p-2 mb-4 w-full"
-            >
-              <option value="" disabled>Select a parameter</option>
-              {parameters.map((param) => (
-                <option key={param.parameter_id} value={param.parameter_id}>
-                  {param.parameter_name}
-                </option>
-              ))}
-            </select>
-            <button
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={handleSaveParameter} // Call save function
-            >
-              Save Parameter
-            </button>
-            <button
-              className="mt-4 bg-red-500 text-white px-4 py-2 rounded ml-2"
-              onClick={handleCloseModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
+  
 };
 
 export default ViewProductsPage;
+
+
+
+
+

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Header from '../../Header';
 
 const CreateProductPage: React.FC = () => {
   const [productName, setProductName] = useState<string>('');
@@ -42,6 +43,7 @@ const CreateProductPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <Header />
       <h1 className="text-3xl font-bold mb-6 text-green-600">Create Product</h1>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md space-y-4 w-1/2">
