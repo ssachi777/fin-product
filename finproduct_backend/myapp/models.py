@@ -2,7 +2,7 @@
 from django.db import models
 
 class Product(models.Model):
-    product_id = models.BigIntegerField(primary_key=True, unique=True)  # INT8 as BigIntegerField
+    product_id = models.BigIntegerField(primary_key=True)  # Change to BigIntegerField for INT8
     admin_id = models.BigIntegerField(null=True, blank=True)  # INT8
     product_name = models.CharField(max_length=255)  # VARCHAR(255)
     parent_product_id = models.BigIntegerField(null=True, blank=True)  # INT8
@@ -22,6 +22,7 @@ class Product(models.Model):
         if last_product:
             return last_product.product_id + 1  # Incrementing the last product ID
         return 1  # Starting from 1
+
 
 
 class Accounts(models.Model):
@@ -77,8 +78,4 @@ class ProductParameter(models.Model):
     class Meta:
         db_table = 'productparameter'
         unique_together = (('product_id', 'parameter_id'),)  # Composite primary key
-        managed = False
-
-    def __str__(self):
-        return f"Product: {self.product_id}, Parameter: {self.parameter_id}"
-
+        managed = False  # This might prevent saving
