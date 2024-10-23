@@ -1,0 +1,188 @@
+/* Top bar styles */
+.topBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-image: linear-gradient(135deg, rgba(227, 77, 103, 0.5), rgba(192, 75, 149, 0.5), rgba(119, 70, 244, 0.5));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px; /* Add some space between the top bar and the container */
+    row-gap: -10px;
+    
+    height: 750;
+   
+}
+
+.iconButton {
+    background-image: linear-gradient(135deg, #E34D67, #C04B95, #7746F4);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+/* Other styles remain unchanged */
+
+.iconButton:hover {
+    background-color: #0056b3;
+}
+
+.title {
+    margin-top: -180px; 
+    margin-right: 940px;
+    font-weight: bold;
+    font-size: 24px; 
+}
+.card {
+    background-image: linear-gradient(135deg, rgba(227, 77, 103, 0.5), rgba(192, 75, 149, 0.5), rgba(119, 70, 244, 0.5));
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    max-height: 120px;
+    width: 100%;
+    margin-bottom: 20px; /* Adjusted margin for better spacing */
+    margin-top: 20px;
+}
+.smallCard {
+    background-image: linear-gradient(135deg, rgba(227, 77, 103, 0.5), rgba(192, 75, 149, 0.5), rgba(119, 70, 244, 0.5));
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    width: 100%;
+    margin-bottom: 10px;
+    
+}
+
+.smallCard {
+    height: 50px;
+    
+    
+}
+
+.title1 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: -10px;
+    align-items: center;
+    background: linear-gradient(135deg, #E34D67, #C04B95, #7746F4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.horizontalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+   
+    
+}
+.label {
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333333;
+    margin-left:100px;
+}
+
+.value {
+    margin-bottom: 16px;
+    margin-right:90px;
+    color: #666666;
+}
+.label1 {
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #333333;
+    margin-left:18px;
+}
+
+.value1 {
+    margin-bottom: 16px;
+    margin-right:90px;
+    color: #666666;
+}
+ .horizontalRow1, .horizontalRow2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.textbox {
+    width: 100%;
+    max-width: 700px;
+    height: 70px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    margin-left: 80px;
+}
+.textbox1 {
+    width: 100%;
+    max-width: 300px;
+    height: 70px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    margin-left: -40px;
+}
+.saveButton {
+    background-image: linear-gradient(135deg, #E34D67, #C04B95, #7746F4);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    width: 300px;
+    cursor: pointer;
+    margin-right: 200px;
+    align-items: center;
+    margin-bottom: -90px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.parameterButton, .customizeButton {
+    background-image: linear-gradient(135deg, #E34D67, #C04B95, #7746F4);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    width: 150px;
+    margin-left: 60px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.saveButton:hover, .parameterButton:hover, .customizeButton:hover {
+    background-color: #5a33c0;
+}
+
+.dropdown {
+    width: 450px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    margin-left: -40px;
+}

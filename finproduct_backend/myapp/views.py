@@ -94,16 +94,6 @@ def get_product_by_account(request, account_id):
         return Response({'detail': 'Product not found for this account.'}, status=status.HTTP_404_NOT_FOUND)
 
 
-
-class CreateProductView(generics.CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-    def perform_create(self, serializer):
-        # Automatically generate product_id and use None for admin_id
-        product_id = Product.generate_product_id()  # Generate new product_id
-        serializer.save(product_id=product_id, admin_id=None)  # Pass product_id and admin_id
-
 # New view for fetching products
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
@@ -116,3 +106,45 @@ class CreateProductParameterView(generics.CreateAPIView):
 class ParameterListView(generics.ListAPIView):
     queryset = Parameter.objects.all()
     serializer_class = ParameterSerializer
+@api_view(['GET'])
+def get_latest_product_id(request):
+    try:
+        last_product = Product.objects.order_by('-product_id').first()
+        if last_product:
+            new_id = last_product.product_id + 1
+        else:
+            new_id = 1001  # Starting ID
+        return Response({'new_product_id': new_id}, status=200)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+@api_view(['POST'])
+def create_product(request):
+    # Generate a unique product_id
+    if 'product_id' not in request.data:
+        last_product = Product.objects.order_by('-product_id').first()
+        if last_product:
+            product_id = last_product.product_id + 1
+        else:
+            product_id = 1001  # Starting ID if no products exist
+        request.data['product_id'] = product_id
+
+    try:
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
+@api_view(['POST'])
+def create_product_parameter(request):
+    try:
+        serializer = ProductParameterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
