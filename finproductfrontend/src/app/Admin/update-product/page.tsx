@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from './UpdateProductPage.module.css';
-import { FaHome, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaSignOutAlt, FaChevronDown } from 'react-icons/fa';
 
 const UpdateProductPage = () => {
     const [productId, setProductId] = useState(null);
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
-    const [selectedParameter, setSelectedParameter] = useState("");
+    const [selectedParameters, setSelectedParameters] = useState(new Set());
     const [error, setError] = useState(null);
     const [parameters, setParameters] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -26,7 +26,6 @@ const UpdateProductPage = () => {
         }
     };
     
-
     const fetchParameters = async () => {
         try {
             const response = await fetch("http://localhost:8000/api/parameters/");
@@ -80,9 +79,13 @@ const UpdateProductPage = () => {
             if (response.ok) {
                 alert("Product saved successfully!");
 
-                // After saving the product, store the parameter values
-                if (selectedParameter) {
-                    await saveProductParameter(productId, selectedParameter);
+                // After saving the product, store the selected parameter values
+                if (selectedParameters.size > 0) {
+                    await Promise.all(
+                        Array.from(selectedParameters).map(parameterId => 
+                            saveProductParameter(productId, parameterId)
+                        )
+                    );
                 }
 
             } else {
@@ -124,6 +127,20 @@ const UpdateProductPage = () => {
             alert("An error occurred while saving the product parameter.");
         }
     };
+
+    const toggleParameterSelection = (parameterId) => {
+        setSelectedParameters(prevSelected => {
+            const newSelected = new Set(prevSelected);
+            if (newSelected.has(parameterId)) {
+                newSelected.delete(parameterId);
+            } else {
+                newSelected.add(parameterId);
+            }
+            return newSelected;
+        });
+    };
+
+    const getSelectedCount = () => selectedParameters.size;
 
     return (
         <div>
@@ -179,18 +196,25 @@ const UpdateProductPage = () => {
                     <h1 className={styles.title1}>Parameters</h1>
                 </div>
                 <div className={styles.horizontalRow2}>
-                    <select
-                        className={styles.dropdown}
-                        value={selectedParameter}
-                        onChange={(e) => setSelectedParameter(e.target.value)}
-                    >
-                        <option value="">Select Parameter</option>
-                        {parameters.map((parameter) => (
-                            <option key={parameter.parameter_id} value={parameter.parameter_id}>
-                                {parameter.parameter_name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className={styles.dropdownContainer}>
+                        <button className={styles.dropdownButton}>
+                            {`Select Parameter (${getSelectedCount()})`} 
+                        </button>
+                        <div className={styles.dropdownContent}>
+                            <div className={styles.scrollableCheckboxes}>
+                                {parameters.map((parameter) => (
+                                    <label key={parameter.parameter_id} className={styles.checkboxLabel}>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedParameters.has(parameter.parameter_id)}
+                                            onChange={() => toggleParameterSelection(parameter.parameter_id)}
+                                        />
+                                        <span style={{ marginLeft: '10px' }}>{parameter.parameter_name}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                     <button className={styles.parameterButton}>Add Parameter</button>
                     <button className={styles.customizeButton}>Customize Parameter</button>
                 </div>

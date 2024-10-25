@@ -178,11 +178,47 @@
     background-color: #5a33c0;
 }
 
-.dropdown {
-    width: 450px;
-    padding: 8px;
+.dropdownContainer {
+    position: relative;
+}
+
+.dropdownButton {
+    padding: 10px;
+    width:350px;
+    height:40px;
+    background-image: linear-gradient(135deg, #E34D67, #C04B95, #7746F4);
+    color: #ffffff;
+    border: none;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
     border: 1px solid #ccc;
-    font-size: 14px;
-    margin-left: -40px;
+    border-radius: 8px;
+    width:350px;
+    z-index: 1000;
+    max-height: 200px; /* Adjust this for how much of the list you want visible */
+    overflow-y: auto; /* Enable scrolling */
+    display: none; /* Initially hidden */
+}
+
+.scrollableCheckboxes {
+    max-height: 150px; /* Limit the height of checkboxes */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.dropdownContainer:hover .dropdownContent {
+    display: block; /* Show dropdown on hover */
 }
