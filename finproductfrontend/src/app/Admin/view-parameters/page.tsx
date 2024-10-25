@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import styles from './ManageParametersPage.module.css'; // Import the CSS module
 
 const ManageParametersPage: React.FC = () => {
   const [parameters, setParameters] = useState<any[]>([]);
@@ -106,29 +107,29 @@ const ManageParametersPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
-      <h1 className="text-2xl font-bold mb-6">Manage Parameters</h1>
-      {error && <p className="text-red-500">{error}</p>}
+    <div className={styles.container}>
+      <h1 className={styles.title}>Manage Parameters</h1>
+      {error && <p className={styles.error}>{error}</p>}
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+        className={styles.addButton}
         onClick={() => setIsAddModalOpen(true)}
       >
         Add Parameter
       </button>
-      <table className="border border-black w-1/2">
+      <table className={styles.table}>
         <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-black p-2">Parameter Name</th>
-            <th className="border border-black p-2">Actions</th>
+          <tr className={styles.tableHeader}>
+            <th className={styles.tableCell}>Parameter Name</th>
+            <th className={styles.tableCell}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {parameters.map((parameter) => (
             <tr key={parameter.parameter_id}>
-              <td className="border border-black p-2">{parameter.parameter_name}</td>
-              <td className="border border-black p-2">
+              <td className={styles.tableCell}>{parameter.parameter_name}</td>
+              <td className={styles.tableCell}>
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                  className={styles.updateButton}
                   onClick={() => handleOpenModal(parameter)}
                 >
                   Update Parameter
@@ -140,15 +141,15 @@ const ManageParametersPage: React.FC = () => {
       </table>
 
       {(isModalOpen || isAddModalOpen) && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded shadow-lg w-80">
-            <h2 className="text-xl font-bold mb-4">
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2 className={styles.modalTitle}>
               {isAddModalOpen ? "Add Parameter" : "Update Parameter"}
             </h2>
             <form>
-              <label className="block mb-2">Parameter Name:</label>
+              <label className={styles.label}>Parameter Name:</label>
               <input
-                className="border p-2 mb-2 w-full"
+                className={styles.input}
                 type="text"
                 value={
                   isAddModalOpen
@@ -161,9 +162,9 @@ const ManageParametersPage: React.FC = () => {
                     : setSelectedParameter({ ...selectedParameter, parameter_name: e.target.value })
                 }
               />
-              <label className="block mb-2">Data Type:</label>
+              <label className={styles.label}>Data Type:</label>
               <input
-                className="border p-2 mb-2 w-full"
+                className={styles.input}
                 type="text"
                 value={
                   isAddModalOpen
@@ -176,9 +177,9 @@ const ManageParametersPage: React.FC = () => {
                     : setSelectedParameter({ ...selectedParameter, data_type: e.target.value })
                 }
               />
-              <label className="block mb-2">Default Value:</label>
+              <label className={styles.label}>Default Value:</label>
               <input
-                className="border p-2 mb-2 w-full"
+                className={styles.input}
                 type="text"
                 value={
                   isAddModalOpen
@@ -191,10 +192,10 @@ const ManageParametersPage: React.FC = () => {
                     : setSelectedParameter({ ...selectedParameter, default_value: e.target.value })
                 }
               />
-              <label className="block mb-2">Min Value:</label>
+              <label className={styles.label}>Min Value:</label>
               <input
-                className="border p-2 mb-2 w-full"
-                type="number"
+                className={styles.input}
+                type="text"
                 value={
                   isAddModalOpen
                     ? newParameter.min_value
@@ -206,10 +207,10 @@ const ManageParametersPage: React.FC = () => {
                     : setSelectedParameter({ ...selectedParameter, min_value: e.target.value })
                 }
               />
-              <label className="block mb-2">Max Value:</label>
+              <label className={styles.label}>Max Value:</label>
               <input
-                className="border p-2 mb-2 w-full"
-                type="number"
+                className={styles.input}
+                type="text"
                 value={
                   isAddModalOpen
                     ? newParameter.max_value
@@ -221,9 +222,9 @@ const ManageParametersPage: React.FC = () => {
                     : setSelectedParameter({ ...selectedParameter, max_value: e.target.value })
                 }
               />
-              <label className="block mb-2">Description:</label>
+              <label className={styles.label}>Description:</label>
               <textarea
-                className="border p-2 mb-2 w-full"
+                className={styles.textArea}
                 value={
                   isAddModalOpen
                     ? newParameter.description
@@ -234,17 +235,17 @@ const ManageParametersPage: React.FC = () => {
                     ? setNewParameter({ ...newParameter, description: e.target.value })
                     : setSelectedParameter({ ...selectedParameter, description: e.target.value })
                 }
-              ></textarea>
+              />
               <button
                 type="button"
-                className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+                className={styles.submitButton}
                 onClick={isAddModalOpen ? handleAddParameter : handleSaveParameter}
               >
-                {isAddModalOpen ? "Add Parameter" : "Save Parameter"}
+                {isAddModalOpen ? "Add" : "Save"}
               </button>
               <button
                 type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded mt-2 ml-2"
+                className={styles.cancelButton}
                 onClick={handleCloseModal}
               >
                 Cancel
