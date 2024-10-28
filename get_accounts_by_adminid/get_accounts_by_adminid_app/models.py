@@ -22,3 +22,4 @@ class Accounts(models.Model):
             self.admin_id = (max_admin_id + 1) if max_admin_id is not None else 1001  # Start from 1001
 
         super().save(*args, **kwargs)
+
