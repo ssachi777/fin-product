@@ -12,11 +12,11 @@ const FirstPage = () => {
     console.log('Admin button clicked');
   };
 
-  const handleCustomerClick = () => {
-    // Logic for customer button click
-    router.push("/Customer")
-    console.log('Customer button clicked');
-  };
+  // const handleCustomerClick = () => {
+  //   // Logic for customer button click
+  //   router.push("/Customer")
+  //   console.log('Customer button clicked');
+  // };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -25,14 +25,14 @@ const FirstPage = () => {
         onClick={handleAdminClick}
         className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition"
       >
-        Admin
+        Product Management
       </button>
-      <button
+      {/* <button
         onClick={handleCustomerClick}
         className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition mt-4"
       >
         Customer
-      </button>
+      </button> */}
     </div>
   );
 };

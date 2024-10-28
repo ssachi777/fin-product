@@ -64,7 +64,7 @@ const ViewProductsPage: React.FC = () => {
         alert('Account created successfully!');
       } catch (err) {
         console.error('Error creating account:', err);
-        // setError(err.message || 'An error occurred while creating the account');
+        setError(err.message || 'An error occurred while creating the account');
       }
     }
   };

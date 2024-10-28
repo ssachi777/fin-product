@@ -2,7 +2,7 @@
 from django.db import models
 
 class Product(models.Model):
-    product_id = models.BigIntegerField(primary_key=True, unique=True)  # INT8 as BigIntegerField
+    product_id = models.BigIntegerField(primary_key=True)  # Change to BigIntegerField for INT8
     admin_id = models.BigIntegerField(null=True, blank=True)  # INT8
     product_name = models.CharField(max_length=255)  # VARCHAR(255)
     parent_product_id = models.BigIntegerField(null=True, blank=True)  # INT8
@@ -22,6 +22,7 @@ class Product(models.Model):
         if last_product:
             return last_product.product_id + 1  # Incrementing the last product ID
         return 1  # Starting from 1
+
 
 
 class Accounts(models.Model):
@@ -48,7 +49,7 @@ class Accounts(models.Model):
 
 
 class Parameter(models.Model):
-    parameter_id = models.CharField(max_length=255, primary_key=True)  # Use CharField for fixed ID
+    parameter_id = models.CharField(primary_key=True)  # Change to BigIntegerField
     parameter_name = models.CharField(max_length=255)
     data_type = models.CharField(max_length=50, null=True)
     default_value = models.CharField(max_length=255, null=True)
@@ -63,7 +64,12 @@ class Parameter(models.Model):
     def __str__(self):
         return self.parameter_name
 
-
+    @staticmethod
+    def generate_parameter_id():
+        last_parameter = Parameter.objects.order_by('parameter_id').last()
+        if last_parameter:
+            return last_parameter.parameter_id + 1  # Incrementing the last parameter ID
+        return 1010793861928484865
 class ProductParameter(models.Model):
     product_id = models.BigIntegerField()  # Foreign key to Product
     parameter_id = models.CharField(max_length=255)  # Foreign key to Parameter as CharField
@@ -72,8 +78,4 @@ class ProductParameter(models.Model):
     class Meta:
         db_table = 'productparameter'
         unique_together = (('product_id', 'parameter_id'),)  # Composite primary key
-        managed = False
-
-    def __str__(self):
-        return f"Product: {self.product_id}, Parameter: {self.parameter_id}"
-
+        managed = False  # This might prevent saving

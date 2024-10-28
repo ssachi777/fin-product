@@ -59,6 +59,18 @@
     
     
   }
+  .icon svg{
+    height: 25px;
+    transform: rotate(180deg);
+    color: white;
+    margin-left: 8px;
+   
+     
+  }
+  .icon{
+    padding-top: 6px;
+    
+  }
   .icons:hover::after {
     content: "Product managment";  /* Text that appears on hover */
     position: absolute;
@@ -79,15 +91,27 @@
     transform: translateY(-60px);
     font-style: Inter;
   }
+  .update-button > button{
+    background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); 
+    margin-top: -40px;
+    margin-left: 1150px;
+    padding: 5px;
+    transform: translatey(-10px);
+    border: 2px solid black;
+    border-radius: 5px;
+    
+    
+  }
 
   .addProduct-container{
+    
     height: 15vh;
     width: 80vw;
     background: linear-gradient(90deg, rgba(255,192,203,1) 0%, rgba(255,255,255,1) 100%);
     margin-left:150px;
     border-radius: 10px;       /* Rounds the corners of the container */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: -40px;
+    /* margin-top: -40px; */
   
   }
   .form-row {
@@ -139,119 +163,121 @@
   margin-left:150px;
   border-radius: 5px;
 }
-.process-description-values{
-  margin-left: 170px;
-}
-.subheading{
-size: 20px;
-font-family: Inter, sans-serif;
-font-weight: bold;
-color: rgb(6, 6, 6);
-margin-top: 5px;
-}
-.subheading-container{
-  margin-left: 20px;
-  padding: 2px;
-}
-.process-description-values{
-  display: flex;
-  /* justify-content: space-between; */
-}
-.process-description-values textarea  {
-  border: 2px solid black;
-  margin-top: 20px;
-  border-radius: 10px;
-}
-.process-description-values textarea::placeholder {
-  color: #888; 
-  opacity: 1; 
-  font-style: Inter; 
-}
-.textbox-1{
-  width: 300px;
+
+  .process-description-values{
+    margin-left: 170px;
+  }
+  .subheading{
+  size: 20px;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  color: rgb(6, 6, 6);
+  margin-top: 5px;
+  }
+  .subheading-container{
+    margin-left: 20px;
+    padding: 2px;
+  }
+  .process-description-values{
+    display: flex;
+    /* justify-content: space-between; */
+  }
+  .process-description-values textarea  {
+    border: 2px solid black;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+  .process-description-values textarea::placeholder {
+    color: #888; 
+    opacity: 1; 
+    font-style: Inter; 
+  }
+  .textbox-1{
+    width: 300px;
+    height: 100px;
+    padding: 10px;
+    
+    
+    }
+  .textbox-2{
+  width: 600px;
   height: 100px;
+  margin-left: 200px;
   padding: 10px;
-  
+  font-size: 16px;
   
   }
-.textbox-2{
-width: 600px;
-height: 100px;
-margin-left: 200px;
-padding: 10px;
-font-size: 16px;
-
-}
-
-
-.parameter-buttons{
-  margin-left: 450px;
-  display: flex;
-  margin-top: 20px;
-
-}
-button {
-  border: 2px solid black;
-  background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); 
-  padding: 10px;
-  border-radius: 10px;
-}
-.button-1{
-  margin-right: 200px;
-}
-.button-submit{
-  border: 2px solid black;
-  background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); 
-  padding: 10px;
-  border-radius: 10px;
-  margin-left: 650px;
-  width: 200px;
-  margin-top: 20px;
-}
-.parameter-list{
-  margin-left: 450px;
-  border: 2px solid black;
-  width: auto;
-  padding: 10px;
-  width: 300px;
-  margin-top: 10px;
-  border-radius: 10px;
-}
-.custom-parameter-form{
-  margin-left: 800px;
-  margin-top: 10px;
-  border: 2px solid black;
-  width: 350px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   
-}
-.buttons{
-  display: flex;
-  justify-content: space-evenly;
- 
   
-}
-.buttons button{
-  width: 80px;
-  height: 40px;
-}
-.custom-parameter-form input{
-  border: 2px solid black;
-  margin-top: 10px;
+  .parameter-buttons{
+    margin-left: 200px;
+    display: flex;
+    margin-top: 20px;
   
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  }
+  button {
+    border: 2px solid black;
+    background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); 
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .button-1{
+    margin-right: 200px;
+  }
+  .button-submit{
+    border: 2px solid black;
+    background: linear-gradient(135deg, #f5a09b, #d97aa8, #a793ff); 
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 650px;
+    width: 200px;
+    margin-top: 20px;
+  }
+  .parameter-list{
+    margin-left: 250px;
+    border: 2px solid black;
+    width: auto;
+    padding: 10px;
+    width: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+  .custom-parameter-form{
+    margin-left: 800px;
+    margin-top: 10px;
+    border: 2px solid black;
+    width: 350px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+  .buttons{
+    display: flex;
+    justify-content: space-evenly;
+   
+    
+  }
+  .buttons button{
+    width: 80px;
+    height: 40px;
+  }
+  .custom-parameter-form input{
+    border: 2px solid black;
+    margin-top: 10px;
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
