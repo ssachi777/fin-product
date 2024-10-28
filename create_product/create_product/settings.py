@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k!ak=@d9$0s6rvk-y#5y5^6w=f4$fzd*^f)u)vj#n#dbf2-o%s'
+SECRET_KEY = 'django-insecure-qw6*=(t1uh-q*u&s@k&whl#xas!t0#yj#9#(an)1eaysqakls='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'myapp',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +50,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+"http://localhost:3000",
+
+"http://127.0.0.1:3000",
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'create_product.urls'
 
@@ -72,13 +83,18 @@ WSGI_APPLICATION = 'create_product.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+'ENGINE': 'django_cockroachdb',
+'NAME': 'defaultdb',
+'USER': 'rahul',
+'PASSWORD': 'S_Cgr4NSW-cJo8zPGdYkRg',
+'HOST': 'database-5500.7s5.aws-ap-south-1.cockroachlabs.cloud',
+'PORT': '26257',
+
+ }
 }
+
 
 
 # Password validation
