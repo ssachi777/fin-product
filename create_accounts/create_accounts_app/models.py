@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Accounts(models.Model):
     account_id = models.IntegerField(primary_key=True)
-    product_id = models. BigIntegerField(null=True, blank=True)
+    product_id = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
     admin_id = models.BigIntegerField(default=1001)
     account_name = models.CharField(max_length=255)
     status = models.CharField(max_length=50, default='active')
