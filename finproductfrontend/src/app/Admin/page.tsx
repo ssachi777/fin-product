@@ -17,7 +17,7 @@ const AdminPage = () => {
     router.push('/Admin/view-products');
   };
 
-<<<<<<< HEAD
+
   // const handleViewCustomersClick = () => {
   //   // Logic for viewing customers (navigate to the view customers page)
   //   router.push('/Admin/view-customers');
@@ -47,8 +47,7 @@ const AdminPage = () => {
           >
             View Customers
           </button> */}
-        </div>
-=======
+        </div
   const handleViewCustomersClick = () => {
     // Logic for viewing customers (navigate to the view customers page)
     router.push('/Admin/view-customers');
@@ -86,7 +85,7 @@ const AdminPage = () => {
         >
           View Parameters
         </button>
->>>>>>> ff88cc855684ba04173b6b38a29156f110502d5c
+
       </div>
     </div>
   );

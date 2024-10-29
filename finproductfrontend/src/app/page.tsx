@@ -10,6 +10,7 @@ import productManageIcon from './productmanage.png'; // Path for product managem
 import UpdateProductPage from './Admin/update-product/page';
 import Add_product from './Admin/add_products/page'
 import Update_product from './Admin/update_products/page'
+import ViewProductPage from './Admin/view_product/page';
 const HomePage: React.FC = () => {
   const [showProductIcon, setShowProductIcon] = useState<boolean>(false); // State for toggling product icon
   const [showManageIcon, setShowManageIcon] = useState<boolean>(false); // State for toggling product management icon
