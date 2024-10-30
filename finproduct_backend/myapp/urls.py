@@ -14,7 +14,8 @@ from .views import (
     create_product,
     get_product_by_id,
     get_product_parameters,
-    update_product_parameters
+    update_product_parameters,
+    get_parameters_by_id
     
 )
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('product/account/<int:account_id>/', get_product_by_account, name='get_product_by_account'),
    
     path('api/products/list/', ProductListView.as_view(), name='product-list'),
+    path('parameters/list/<int:parameter_id>', get_parameters_by_id, name='get_parameters_by_id'),
     path('api/parameters/', ParameterListView.as_view(), name='list-parameters'),
     path('api/parameters/<int:parameter_id>/', update_parameter, name='update-parameter'),
     path('api/parameters/create/', create_parameter, name='create-parameter'),

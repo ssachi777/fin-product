@@ -218,3 +218,15 @@ def update_product_parameters(request, product_id):
         })
 
     return Response(response_data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_parameters_by_id(request, parameter_id):
+    """
+    Fetch all parameters associated with a given product ID.
+    """
+    parameters = Parameter.objects.filter(parameter_id=parameter_id)
+    if not parameters.exists():
+        return Response({"error": "No parameters found for this product."}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ParameterSerializer(parameters, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
