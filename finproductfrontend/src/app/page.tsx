@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
   };
 
   const handleProductManageIconClick = () => {
-    router.push('/Admin'); // Redirect to the product management page
+    router.push('/Admin/view-products'); // Redirect to the product management page
   };
 
   return (
@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
       <header
         className="flex justify-between items-center w-full p-2" // Adjust padding here
         style={{
-          background: 'linear-gradient(to right, rgba(227, 77, 103, 0.3), rgba(192, 75, 149, 0.3), rgba(119, 70, 244, 0.3))',
+          background: 'linear-gradient(to right, rgba(227, 77, 103, 0.3), rgba(192, 75, 149, 0.3), rgba(119, 70, 244, 0.3)),#fff',
           height: '65px', // Set a fixed height for the header
         }}
       >
@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
                     />
                     {/* Tooltip for product management icon */}
                     <span
-                      className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-clip-text text-transparent"
+                      className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-clip-text text-transparent whitespace-nowrap"
                       style={{
                         background: 'linear-gradient(to right, rgba(227, 77, 103, 1), rgba(192, 75, 149, 1), rgba(119, 70, 244, 1))',
                         WebkitBackgroundClip: 'text',

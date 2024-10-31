@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   };
 
   const handleProductManageIconClick = () => {
-    router.push('/Admin'); // Redirect to the product management page
+    router.push('/Admin/view-products'); // Redirect to the product management page
   };
 
   return (
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
           />
           {/* Hover text for Product Management Icon */}
           <span
-            className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-clip-text text-transparent"
+            className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-clip-text text-transparent whitespace-nowrap"
             style={{
               background: 'linear-gradient(to right, rgba(227, 77, 103, 1), rgba(192, 75, 149, 1), rgba(119, 70, 244, 1))',
               WebkitBackgroundClip: 'text',

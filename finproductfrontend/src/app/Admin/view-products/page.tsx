@@ -142,14 +142,14 @@ const ViewProductsPage: React.FC = () => {
     return productTree.map((product) => (
       <React.Fragment key={product.product_id}>
         <tr>
-          <td className={`border border-white p-2 ${parentName ? 'pl-8' : 'font-bold'}`}>
+          <td className={`border border-white p-2 text-center ${parentName ? 'pl-8' : 'font-bold'}`}>
             {product.product_name}
             {parentName && <span className="text-sm text-gray-600"> (Sub-product of {parentName})</span>}
           </td>
-          <td className="border border-white p-2">{product.product_id}</td> {/* Display product_id */}
-          <td className="border border-white p-2"></td> {/* Tags column - empty for now */}
-          <td className="border border-white p-2">1.0.0</td> {/* Default version */}
-          <td className="border border-white p-2">
+          <td className="border border-white p-2 text-center">{product.product_id}</td> {/* Display product_id */}
+          <td className="border border-white p-2 text-center"></td> {/* Tags column - empty for now */}
+          <td className="border border-white p-2 text-center">1.0.0</td> {/* Default version */}
+          <td className="border border-white p-2 text-center">
             <select
               className="border p-2"
               onChange={(e) => handleAction(product.product_id, e.target.value)}
@@ -184,26 +184,28 @@ const ViewProductsPage: React.FC = () => {
         </button>
       </div>
   
-      <h1 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#E34D67] via-[#C04B95] to-[#7746F4]">
-        Product List
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#E34D67] via-[#C04B95] to-[#7746F4]">
+         Product List
+       </h1>
   
       {error && <p className="text-red-500">{error}</p>}
       {treeProducts.length > 0 ? (
-        <table className="border border-white w-0.1">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-white p-4">Product Name</th>
-              <th className="border border-white p-4">Product ID</th>
-              <th className="border border-white p-4">Tags</th>
-              <th className="border border-white p-4">Current Version</th>
-              <th className="border border-white p-4">Actions</th>
+      <div className="w-full max-w-4xl overflow-y-auto" style={{ maxHeight: '60vh' }}>
+        <table className="border border-white w-full">
+          <thead className="sticky top-0 bg-gray-200">
+            <tr className="bg-gray-100">
+              <th className="border border-white p-4 text-center">Product Name</th>
+              <th className="border border-white p-4 text-center">Product ID</th>
+              <th className="border border-white p-4 text-center">Tags</th>
+              <th className="border border-white p-4 text-center">Current Version</th>
+              <th className="border border-white p-4 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {renderProductTree(treeProducts)}
           </tbody>
         </table>
+      </div>
       ) : (
         <p>No products available.</p>
       )}
