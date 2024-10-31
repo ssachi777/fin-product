@@ -17,7 +17,7 @@ const ViewProductsPage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8009/api/products/list/');
+        const response = await fetch('http://localhost:8000/api/products/list/');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -121,7 +121,7 @@ const ViewProductsPage: React.FC = () => {
   };
   // Button click handler for "Add Products"
   const handleAddProductsClick = () => {
-    router.push('/Admin/create-product'); // Redirect to the create product page
+    router.push('/Admin/update-product'); // Redirect to the create product page
   };
 
 

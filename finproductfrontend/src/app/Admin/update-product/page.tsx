@@ -133,9 +133,7 @@ const UpdateProductPage = () => {
                 const errorData = await response.json();
                 console.error("Error saving product parameter:", errorData);
                 alert("Failed to save product parameter");
-            } else {
-                alert("Parameter saved successfully!");
-            }
+            } 
         } catch (err) {
             console.error("Error saving product parameter:", err);
             alert("An error occurred while saving the product parameter.");
@@ -196,7 +194,7 @@ const UpdateProductPage = () => {
                 <div className={styles.card}>
                     <div className={styles.horizontalRow}>
                         <div className={styles.label}>Product ID:</div>
-                        <div className={styles.value}>{productId ? `${productId}` : "Loading..."}</div>
+                        <div className={styles.value}>{productId ? `******` : "Loading..."}</div>
 
                         <div className={styles.label}>Status:</div>
                         <div className={styles.value}>Active</div>

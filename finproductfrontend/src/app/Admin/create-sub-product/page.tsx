@@ -16,7 +16,7 @@ const SubProductCreationPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/api/products/', {
+      const response = await fetch('http://localhost:8001/api/products/create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
