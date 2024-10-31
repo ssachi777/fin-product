@@ -53,7 +53,7 @@ const UpdateProductPage: React.FC = () => {
       const response = await fetch("http://localhost:8000/api/products/update/1021/", {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify(productData),
       });

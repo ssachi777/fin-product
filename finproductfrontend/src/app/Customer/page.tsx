@@ -16,7 +16,7 @@ const ViewProductsPage: React.FC = () => {
       try {
         const response = await fetch('http://localhost:8000/api/products/list/');
         if (!response.ok) {
-          throw new Error('Failed to fetch products');
+          throw new Error('Failed to fetch products sachin');
         }
         const data = await response.json();
         console.log('Fetched data:', data);
