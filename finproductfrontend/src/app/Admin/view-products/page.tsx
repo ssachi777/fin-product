@@ -121,7 +121,7 @@ const ViewProductsPage: React.FC = () => {
   };
   // Button click handler for "Add Products"
   const handleAddProductsClick = () => {
-    router.push('/Admin/create-product'); // Redirect to the create product page
+    router.push('/Admin/update-product'); // Redirect to the create product page
   };
 
 
