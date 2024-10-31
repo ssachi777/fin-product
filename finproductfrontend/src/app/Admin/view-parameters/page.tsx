@@ -24,7 +24,7 @@ const ManageParametersPage: React.FC = () => {
 
   const fetchParameters = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/parameters/");
+      const response = await fetch("http://localhost:8008/api/parameters/");
       if (!response.ok) {
         throw new Error("Failed to fetch parameters");
       }
@@ -77,7 +77,7 @@ const ManageParametersPage: React.FC = () => {
 
   const handleAddParameter = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/parameters/create/", {
+      const response = await fetch("http://localhost:8002/api/parameters/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

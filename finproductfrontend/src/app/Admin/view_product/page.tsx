@@ -10,7 +10,7 @@ const ViewProductPage: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/products/list/');
+        const response = await fetch('http://localhost:8009/api/products/list/');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

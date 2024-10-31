@@ -82,7 +82,7 @@ const UpdateProductPage = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:8000/api/products/create/", {
+            const response = await fetch("http://localhost:8001/api/products/create/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const UpdateProductPage = () => {
     const getSelectedCount = () => selectedParameters.size;
     const handleAddParameter = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/parameters/create/", {
+            const response = await fetch("http://localhost:8002/api/parameters/create/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newParameter),
