@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import (get_product_by_account)
+from .views import (get_product_details_by_account_id)
 
 urlpatterns = [
-     path('product/account/<int:account_id>/', get_product_by_account, name='get_product_by_account'),
+    path('account/<int:account_id>/product-details/', get_product_details_by_account_id, name='product_details_by_account_id'),
     ]
