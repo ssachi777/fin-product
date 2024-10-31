@@ -143,7 +143,9 @@ const ViewProductsPage: React.FC = () => {
       <React.Fragment key={product.product_id}>
         <tr>
           <td className={`border border-white p-2 text-center ${parentName ? 'pl-8' : 'font-bold'}`}>
+            <a href={`/Admin/${product.product_id}`} className="text-blue-500 underline">
             {product.product_name}
+            </a>
             {parentName && <span className="text-sm text-gray-600"> (Sub-product of {parentName})</span>}
           </td>
           <td className="border border-white p-2 text-center">{product.product_id}</td> {/* Display product_id */}

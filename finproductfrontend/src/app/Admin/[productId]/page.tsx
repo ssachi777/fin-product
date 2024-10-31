@@ -1,72 +1,90 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-interface ProductDetailsPageProps {
-  params: {
-    productId: string;
-  };
+interface Product {
+  product_id: number;
+  product_name: string;
+  tags: string[];
+  created_at: string;
 }
 
-const ProductDetailsPage: React.FC<ProductDetailsPageProps> = ({ params }) => {
-  const { productId } = params;
-  const [product, setProduct] = useState<any>(null);
-  const [parameters, setParameters] = useState<any[]>([]);
+interface Parameter {
+  parameter_name: string;
+  description: string;
+  created_at: string;
+}
+
+const ProductDetailsPage: React.FC = () => {
+  const { productId } = useParams();
+  const router = useRouter();
+
+  const [product, setProduct] = useState<Product | null>(null);
+  const [parameters, setParameters] = useState<Parameter[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (productId) {
-      // Fetch product details
-      const fetchProductDetails = async () => {
-        try {
-          const response = await fetch(`http://localhost:8000/api/products/${productId}/`);
-          if (!response.ok) throw new Error(`Failed to fetch product details: ${response.status} ${response.statusText}`);
-          const data = await response.json();
-          setProduct(data);
-        } catch (err) {
-          setError('Error fetching product details');
+    const fetchProductDetails = async () => {
+      try {
+        // Fetch product details from `parent-product` endpoint
+        const productResponse = await fetch(`http://localhost:8000/api/products/parent-product/`);
+        if (!productResponse.ok) {
+          throw new Error('Failed to fetch product details');
         }
-      };
+        const productData = await productResponse.json();
+        const selectedProduct = productData.find((prod: Product) => prod.product_id === Number(productId));
 
-      // Fetch product parameters
-      const fetchParameters = async () => {
-        try {
-          const response = await fetch('http://127.0.0.1:8000/api/parameters/');
-          if (!response.ok) throw new Error('Failed to fetch parameters');
-          const data = await response.json();
-          setParameters(data.filter((param: any) => param.product_id === Number(productId)));
-        } catch (err) {
-          setError('Error fetching parameters');
+        if (!selectedProduct) {
+          throw new Error('Product not found');
         }
-      };
+        setProduct(selectedProduct);
 
-      fetchProductDetails();
-      fetchParameters();
-    }
+        // Fetch product parameters based on `productId`
+        const parameterResponse = await fetch(`http://localhost:8000/api/products/parameters/${productId}/`);
+        if (!parameterResponse.ok) {
+          throw new Error('Failed to fetch product parameters');
+        }
+        const parameterData = await parameterResponse.json();
+        setParameters(parameterData.parameters);
+
+      } catch (err) {
+        console.error('Error fetching product details or parameters:', err);
+        setError(err.message || 'An error occurred while fetching product details');
+      }
+    };
+
+    fetchProductDetails();
   }, [productId]);
 
-  if (error) return <p>{error}</p>;
-  if (!product) return <p>Loading...</p>;
-
   return (
-    <div className="p-4">
-      {/* Product Details Card */}
-      <div className="bg-white p-6 rounded shadow mb-4">
-        <h2 className="text-2xl font-bold mb-2">{product.product_name}</h2>
-        <p>Tags: {product.tags || 'No tags'}</p>
-        <p>Created At: {new Date(product.created_at).toLocaleDateString()}</p>
-      </div>
+    <div className="flex flex-col items-center min-h-screen bg-white text-black p-4">
+      {error && <p className="text-red-500">{error}</p>}
 
-      {/* Product Parameters */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {parameters.map((param) => (
-          <div key={param.parameter_id} className="bg-gray-100 p-4 rounded shadow">
-            <h3 className="font-semibold">{param.parameter_name}</h3>
-            <p>{param.description}</p>
-            <p className="text-gray-600 text-sm">Created At: {new Date(param.created_at).toLocaleDateString()}</p>
-          </div>
-        ))}
-      </div>
+      {/* Product Details Card */}
+      {product && (
+        <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6 mb-6">
+          <h2 className="text-2xl font-semibold mb-2">{product.product_name}</h2>
+          <p className="text-gray-700 mb-1"><strong>Tags:</strong> {product.tags.join(', ')}</p>
+          <p className="text-gray-700"><strong>Created At:</strong> {new Date(product.created_at).toLocaleDateString()}</p>
+        </div>
+      )}
+
+      {/* Parameters Grid */}
+      {parameters.length > 0 ? (
+        <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {parameters.map((param, index) => (
+            <div key={index} className="bg-white shadow-md rounded-lg p-4">
+              <h3 className="text-xl font-medium mb-2">{param.parameter_name}</h3>
+              <p className="text-gray-700 mb-2">{param.description}</p>
+              <p className="text-gray-600 text-sm"><strong>Created At:</strong> {new Date(param.created_at).toLocaleDateString()}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-600">No parameters available for this product.</p>
+      )}
     </div>
   );
 };
